@@ -23,9 +23,9 @@ export class NominationComponent implements OnInit {
 
   initForm() {
     this.searchForm = this.fb.group({
-      title: ['', Validators.required],
-      type: ['', Validators.required],
-      year: ['']
+      title: [null, Validators.required],
+      type: [null, Validators.required],
+      year: [null]
     });
     this.searchForm.patchValue({
       type: 'movie',

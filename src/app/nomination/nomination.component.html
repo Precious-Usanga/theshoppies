@@ -34,7 +34,7 @@
                   <mat-label>Movie Title</mat-label>
                   <input matInput placeholder="Enter Movie Title" formControlName="title" required>
                   <ng-container *ngIf="(searchFormData.title.dirty || searchFormData.title.touched) && searchFormData.title.invalid">
-                    <mat-error *ngIf="searchFormData.title.errors.required" class="invalid-feedback">Please Enter Movie Title</mat-error>
+                    <mat-error *ngIf="searchFormData.title.errors?.required" class="invalid-feedback">Please Enter Movie Title</mat-error>
                   </ng-container>
                 </mat-form-field>
               </div>
@@ -52,7 +52,7 @@
                   </mat-select>
                   <mat-label>Search Type</mat-label>
                   <ng-container *ngIf="(searchFormData.type.dirty || searchFormData.type.touched) && searchFormData.type.invalid">
-                    <mat-error *ngIf="searchFormData.type.errors.required" class="invalid-feedback">Please Select Search Type</mat-error>
+                    <mat-error *ngIf="searchFormData.type.errors?.required" class="invalid-feedback">Please Select Search Type</mat-error>
                   </ng-container>
                 </mat-form-field>
               </div>
@@ -82,7 +82,7 @@
            </div>
           </div>
           <div class="row">
-            <div class="col-sm-4 my-1">
+            <div class="col-sm-6 col-lg-4 my-1">
               <mat-card class="example-card">
                 <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content>
@@ -96,7 +96,7 @@
                 </mat-card-actions>
               </mat-card>
             </div>
-            <div class="col-sm-4 my-1">
+            <div class="col-sm-6 col-lg-4 my-1">
               <mat-card class="example-card">
                 <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content>
@@ -110,7 +110,7 @@
                 </mat-card-actions>
               </mat-card>
             </div>
-            <div class="col-sm-4 my-1">
+            <div class="col-sm-6 col-lg-4 my-1">
               <mat-card class="example-card">
                 <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content>
