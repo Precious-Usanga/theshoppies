@@ -3,157 +3,168 @@
     <app-header></app-header>
   </section>
 
-  <section id="nomination_banner">
-    <div class="card">
-      <div class="container">
-        <div class="row py-2">
-          <div class="col-sm-12">
-            <mat-button-toggle-group name="timer" class="my-2" aria-label="Timer">
-              <mat-button-toggle value="01">01</mat-button-toggle>
-              <mat-button-toggle value="20">20</mat-button-toggle>
-              <mat-button-toggle value="15">15</mat-button-toggle>
-              <mat-button-toggle value="30">30</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-          <h1 class="my-4" style="font-size: 3.5rem; font-weight: 800;">
-            The Shoppies Nomination
-          </h1>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="search_component">
-    <div class="container">
-      <div class="row">
-        <mat-card>
-          <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchFormData)" class="row gx-3 gy-2 align-items-center">
-            <div class="row">
-              <div class="col-sm-4">
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Movie Title</mat-label>
-                  <input matInput placeholder="Enter Movie Title" formControlName="title" required>
-                  <ng-container *ngIf="(searchFormData.title.dirty || searchFormData.title.touched) && searchFormData.title.invalid">
-                    <mat-error *ngIf="searchFormData.title.errors?.required" class="invalid-feedback">Please Enter Movie Title</mat-error>
-                  </ng-container>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-4">
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Movie Year</mat-label>
-                  <input matInput placeholder="Enter Movie Year" formControlName="year">
-                </mat-form-field>
-              </div>
-              <div class="col-sm-4">
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-select required>
-                    <mat-option [value]="null">Select Type</mat-option>
-                    <mat-option value="movie">Movie</mat-option>
-                  </mat-select>
-                  <mat-label>Search Type</mat-label>
-                  <ng-container *ngIf="(searchFormData.type.dirty || searchFormData.type.touched) && searchFormData.type.invalid">
-                    <mat-error *ngIf="searchFormData.type.errors?.required" class="invalid-feedback">Please Select Search Type</mat-error>
-                  </ng-container>
-                </mat-form-field>
-              </div>
-              <div class="col-auto">
-                <button mat-raised-button class="mx-2" color="primary" [disabled]="!searchForm.valid" type="submit">Search...</button>
-                <button mat-raised-button class="mx-2" color="basic" (click)="searchForm.reset()" type="reset">Reset</button>
-              </div>
-            </div>
-          </form>
-
-        </mat-card>
-      </div>
-    </div>
-  </section>
-
-  <section id="search_result">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 gx-1 gy-1">
-          <div class="row">
-           <div class="col-sm-12 my-1">
-            <mat-card>
-              <h1 style="font-size: 1.14rem; font-weight:700;">
-                <i>Search Results...</i>
-              </h1>
-            </mat-card>
-           </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6 col-lg-4 my-1">
-              <mat-card class="example-card">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                  </p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-            <div class="col-sm-6 col-lg-4 my-1">
-              <mat-card class="example-card">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                  </p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-            <div class="col-sm-6 col-lg-4 my-1">
-              <mat-card class="example-card">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                  </p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 gx-1 gy-1">
-          <div class="row">
-            <div class="col-sm-12 my-1">
-             <mat-card>
-               <h1 style="font-size: 1.14rem; font-weight:700;">
-                 <i>Nominations</i>
-               </h1>
-             </mat-card>
-            </div>
-           </div>
-           <div class="row">
+  <ng-container *ngIf="nominationList.length === 0">
+    <section id="nomination_banner">
+      <div class="card">
+        <div class="container">
+          <div class="row py-2">
             <div class="col-sm-12">
-              <mat-card class="example-card">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                  </p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
-                </mat-card-actions>
-              </mat-card>
+              <mat-button-toggle-group name="timer" class="my-2" aria-label="Timer">
+                <mat-button-toggle value="01">01</mat-button-toggle>
+                <mat-button-toggle value="20">20</mat-button-toggle>
+                <mat-button-toggle value="15">15</mat-button-toggle>
+                <mat-button-toggle value="30">30</mat-button-toggle>
+              </mat-button-toggle-group>
             </div>
-           </div>
+            <h1 class="my-4" style="font-size: 3.5rem; font-weight: 800;">
+              The Shoppies Nomination
+            </h1>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="search_component">
+      <div class="container">
+        <div class="row">
+          <mat-card>
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchFormData)" class="row gx-3 gy-2 align-items-center">
+              <div class="row">
+                <div class="col-sm-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Movie Title</mat-label>
+                    <input matInput placeholder="Enter Movie Title" formControlName="title" required>
+                    <ng-container *ngIf="(searchFormData.title.dirty || searchFormData.title.touched) && searchFormData.title.invalid">
+                      <mat-error *ngIf="searchFormData.title.errors?.required" class="invalid-feedback">Please Enter Movie Title</mat-error>
+                    </ng-container>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Movie Year</mat-label>
+                    <input matInput placeholder="Enter Movie Year" formControlName="year">
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-select required>
+                      <mat-option [value]="null">Select Type</mat-option>
+                      <mat-option value="movie">Movie</mat-option>
+                    </mat-select>
+                    <mat-label>Search Type</mat-label>
+                    <ng-container *ngIf="(searchFormData.type.dirty || searchFormData.type.touched) && searchFormData.type.invalid">
+                      <mat-error *ngIf="searchFormData.type.errors?.required" class="invalid-feedback">Please Select Search Type</mat-error>
+                    </ng-container>
+                  </mat-form-field>
+                </div>
+                <div class="col-auto">
+                  <button mat-raised-button class="mx-2" color="primary" [disabled]="!searchForm.valid" type="submit">Search...</button>
+                  <button mat-raised-button class="mx-2" color="basic" (click)="searchForm.reset()" type="reset">Reset</button>
+                </div>
+              </div>
+            </form>
+
+          </mat-card>
+        </div>
+      </div>
+    </section>
+
+    <section id="search_result">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 gx-1 gy-1">
+            <div class="row">
+             <div class="col-sm-12 my-1">
+              <mat-card>
+                <h1 style="font-size: 1.14rem; font-weight:700;">
+                  <i>Search Results...</i>
+                </h1>
+              </mat-card>
+             </div>
+            </div>
+            <div class="row">
+              <ng-container *ngFor="let result of searchResult">
+                <div class="col-sm-6 col-lg-4 my-1">
+                  <mat-card>
+                    <img mat-card-image [src]="result.Poster" height="200px" alt="Movie Poster of {{result.Title}}">
+                    <mat-card-header>
+                      <mat-card-title style="font-size: 1rem;">{{ result.Title }}</mat-card-title>
+                      <mat-card-subtitle class="small">{{ result.Year }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                      <button mat-raised-button color="primary" [disabled]="nomination.length >= 5" (click)="addNomination(result)">NOMINATE</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-4 gx-1 gy-1">
+            <div class="row">
+              <div class="col-sm-12 my-1">
+               <mat-card>
+                 <div class="d-flex justify-content-between align-items-center">
+                  <h1 style="font-size: 1.14rem; font-weight:700;">
+                    <i>Nominations</i>
+                  </h1>
+                  <button mat-raised-button color="primary" [disabled]="!(nomination.length >= 5)" (click)="submitNomination(nomination)">SUBMIT</button>
+                 </div>
+                </mat-card>
+              </div>
+             </div>
+             <div class="row">
+              <ng-container *ngFor="let result of nomination, let i = index;">
+                <div class="col-sm-12 my-1">
+                  <mat-card>
+                    <img mat-card-image [src]="result.Poster" height="200px" alt="Movie Poster of {{result.Title}}">
+                    <mat-card-header>
+                      <mat-card-title style="font-size: 1rem;">{{ result.Title }}</mat-card-title>
+                      <mat-card-subtitle class="small">{{ result.Year }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                      <button mat-raised-button color="primary" (click)="removeNomination(result, i)">Remove</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+  <ng-container *ngIf="nominationList.length !== 0">
+    <section id="nominations">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 gx-1 gy-1">
+            <div class="row">
+             <div class="col-sm-12 my-1">
+              <mat-card>
+                <h1 style="font-size: 1.14rem; font-weight:700;">
+                  <i>Congratulations! You have made your nomination!</i>
+                </h1>
+              </mat-card>
+             </div>
+            </div>
+            <div class="row">
+              <ng-container *ngFor="let result of nominationList">
+                <div class="col-sm-6 col-md-4 col-lg-3 my-1">
+                  <mat-card>
+                    <img mat-card-image [src]="result.Poster" alt="Movie Poster of {{result.Title}}">
+                    <mat-card-header>
+                      <mat-card-title style="font-size: 1rem;">{{ result.Title }}</mat-card-title>
+                      <mat-card-subtitle class="small">{{ result.Year }}</mat-card-subtitle>
+                    </mat-card-header>
+                  </mat-card>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
 </main>

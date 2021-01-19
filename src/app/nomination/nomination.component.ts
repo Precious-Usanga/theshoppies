@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CrudService } from '../core/service/crud.service';
+
+interface IMovie {
+  Poster: '',
+  Title: '',
+  Year: '',
+  Type: '',
+  imdbID: ''
+}
 
 @Component({
   selector: 'app-nomination',
@@ -12,13 +21,23 @@ export class NominationComponent implements OnInit {
   searchForm!: FormGroup;
   searchResult: any[] = [];
   nomination: any[] = [];
+  nominationList: any[] = [];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  snackbarRef: any;
+
   constructor(
     private fb: FormBuilder,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.initForm();
+    if(localStorage.getItem('nominations') !== null){
+      this.alreadyNominated();
+    } else {
+      this.initForm();
+    }
   }
 
   initForm() {
@@ -32,6 +51,11 @@ export class NominationComponent implements OnInit {
       year: '2020'
     })
 
+  }
+
+  alreadyNominated() {
+    const a: any = localStorage.getItem('nominations');
+    this.nominationList = JSON.parse(a)
   }
 
   get searchFormData() {
@@ -58,5 +82,48 @@ export class NominationComponent implements OnInit {
     );
   }
 
+  addNomination(movie: IMovie) {
+    if (this.nomination.length < 5) {
+      this.nomination.push(movie);
+      this.snackbarRef = this.snackBar.open(
+        `${movie.Title} Nominated`, '', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: 'primary'
+        }
+      )
+    } else {
+      this.snackbarRef = this.snackBar.open(
+        `You have made five(5) nominations already`, '', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: 'primary'
+        }
+      )
+    }
+  }
+
+  removeNomination(movie: IMovie, index: number) {
+    this.nomination.splice(index, 1);
+    this.snackbarRef = this.snackBar.open(
+      `${movie.Title} Removed from Nominations`, '', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: 'primary'
+      }
+    )
+  }
+
+  submitNomination(movies: Array<IMovie>){
+    this.snackbarRef = this.snackBar.open(
+      `Congratulations! You have submitted your nomination`, '', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: 'primary'
+      }
+    )
+    localStorage.setItem('nominations', JSON.stringify(movies));
+    this.alreadyNominated();
+  }
 
 }
