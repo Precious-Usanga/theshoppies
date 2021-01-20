@@ -9,12 +9,7 @@
         <div class="container">
           <div class="row py-2">
             <div class="col-sm-12">
-              <mat-button-toggle-group name="timer" class="my-2" aria-label="Timer">
-                <mat-button-toggle value="01">01</mat-button-toggle>
-                <mat-button-toggle value="20">20</mat-button-toggle>
-                <mat-button-toggle value="15">15</mat-button-toggle>
-                <mat-button-toggle value="30">30</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-timer></app-timer>
             </div>
             <h1 class="my-4" style="font-size: 3.5rem; font-weight: 800;">
               The Shoppies Nomination
@@ -83,7 +78,7 @@
              </div>
             </div>
             <div class="row">
-              <ng-container *ngFor="let result of searchResult">
+              <ng-container *ngFor="let result of searchResult, let i = index">
                 <div class="col-sm-6 col-lg-4 my-1">
                   <mat-card>
                     <img mat-card-image [src]="result.Poster" height="200px" alt="Movie Poster of {{result.Title}}">
@@ -92,7 +87,7 @@
                       <mat-card-subtitle class="small">{{ result.Year }}</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-actions>
-                      <button mat-raised-button color="primary" [disabled]="nomination.length >= 5" (click)="addNomination(result)">NOMINATE</button>
+                      <button mat-raised-button color="primary" [disabled]="nomination.length >= 5 || alreadyNominated(result)" (click)="addNomination(result); ">NOMINATE</button>
                     </mat-card-actions>
                   </mat-card>
                 </div>

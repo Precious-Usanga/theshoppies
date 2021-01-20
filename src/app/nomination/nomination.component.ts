@@ -25,6 +25,7 @@ export class NominationComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   snackbarRef: any;
+  // alreadySubmitted: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +35,7 @@ export class NominationComponent implements OnInit {
 
   ngOnInit(): void {
     if(localStorage.getItem('nominations') !== null){
-      this.alreadyNominated();
+      this.nominationSubmitted();
     } else {
       this.initForm();
     }
@@ -53,7 +54,7 @@ export class NominationComponent implements OnInit {
 
   }
 
-  alreadyNominated() {
+  nominationSubmitted() {
     const a: any = localStorage.getItem('nominations');
     this.nominationList = JSON.parse(a)
   }
@@ -82,6 +83,15 @@ export class NominationComponent implements OnInit {
     );
   }
 
+  alreadyNominated(movieId: any) {
+    for (const mov of this.nomination) {
+      if (mov.imdbID === movieId.imdbID) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   addNomination(movie: IMovie) {
     if (this.nomination.length < 5) {
       this.nomination.push(movie);
@@ -89,7 +99,7 @@ export class NominationComponent implements OnInit {
         `${movie.Title} Nominated`, '', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
-          panelClass: 'primary'
+          panelClass: 'bg-success'
         }
       )
     } else {
@@ -97,7 +107,7 @@ export class NominationComponent implements OnInit {
         `You have made five(5) nominations already`, '', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
-          panelClass: 'primary'
+          panelClass: 'bg-info'
         }
       )
     }
@@ -109,7 +119,7 @@ export class NominationComponent implements OnInit {
       `${movie.Title} Removed from Nominations`, '', {
         horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,
-        panelClass: 'primary'
+        panelClass: 'bg-info'
       }
     )
   }
@@ -119,11 +129,11 @@ export class NominationComponent implements OnInit {
       `Congratulations! You have submitted your nomination`, '', {
         horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,
-        panelClass: 'primary'
+        panelClass: 'bg=success'
       }
     )
     localStorage.setItem('nominations', JSON.stringify(movies));
-    this.alreadyNominated();
+    this.nominationSubmitted();
   }
 
 }

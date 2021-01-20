@@ -36,12 +36,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { TimerComponent } from './timer/timer.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [TimerComponent],
+  imports: [MatButtonToggleModule],
   exports: [
+    TimerComponent,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
